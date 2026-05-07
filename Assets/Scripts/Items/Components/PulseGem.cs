@@ -6,9 +6,10 @@ public class CapacitorComponent : ComponentItem, IItem {
 
     public override void Use(){}
 
-    public override void Activate() {
+    public override void Activate(List<ComponentItem> chain) {
+        chain.Add(this);
         if (currentEnergy > stats.energyCost) {
-            SplitPower();
+            SplitPower(chain);
             Drain(currentEnergy);
         }
     }

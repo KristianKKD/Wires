@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: CapacitorStats
+  m_Script: {fileID: 11500000, guid: 13290220318e139449ae2ca23a6c8afc, type: 3}
+  m_Name: PulseGem
   m_EditorClassIdentifier: Assembly-CSharp::ItemStats
-  itemName: Capacitor
-  description: 
-  spr: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  itemName: Pulse Gem
+  description: This is a new item.
+  spr: {fileID: -5177388603050735206, guid: eaae081dd4efdab4c9f80f0d9ff217e3, type: 3}
   itemPrefab: {fileID: 660305721126542236, guid: 5e48bb04fe855da40b65c277b96f5103, type: 3}
-  energyCost: 5
-  energyCapacity: 20
+  energyCost: 10
+  energyCapacity: 40

@@ -32,39 +32,9 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
             ComponentItem c = it.gameObject.GetComponent<ComponentItem>();
             if (c != null) {
-                c.Reset(); //clears connections and makes sure stats are initalized
-                c.tile = this;
+                c.myTile = this;
                 if (isTile)
-                    Connect(c);
-            }
-        }
-    }
-
-    public void Connect(ComponentItem c) {
-        c.outgoingConnections.Clear();
-
-        for (int i = 0; i < c.outSpots.Count; i++) {
-            //check to see if anything is attached to the out spots
-            Vector2 outPos = c.outSpots[i];
-            Component targetItem = QuickReferences.qr.brd.GetComponentAtPosition(outPos, id);
-            if (targetItem == null)
-                continue;
-            ComponentItem targetComponent = targetItem.GetComponent<ComponentItem>();
-            if (targetComponent == null || targetComponent == c)
-                continue;
-
-
-            //check to see if the ComponentItem has an in spot at the relevant position
-            for (int j = 0; j < targetComponent.inSpots.Count; j++) {
-                Vector2 inPos = targetComponent.inSpots[j];
-
-                //if there is a incoming connection spot on the target ComponentItem at the outgoing connection spot from the outgoing ComponentItem
-                if (outPos == inPos*-1) {
-                    c.outgoingConnections.Add(targetComponent);
-                    targetComponent.incomingConnections.Add(c);
-                    //targetComponent.tile.Connect(targetComponent); //need to consider that a two way connection won't work without re updating the other ComponentItem, CAUSES INFINITE LOOP
-                    Debug.Log("Connected " + targetComponent.name + " as an outgoing connection to " + c.name);
-                }
+                    c.OnPlace();
             }
         }
     }
@@ -72,8 +42,10 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
     public void Reset() {
         containedItem = null;
         spr = null;
+        
         if (itemImage != null)
             itemImage.enabled = false;
+
         if (draggedClone != null)
             Destroy(draggedClone);
         draggedClone = null;
@@ -89,7 +61,7 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         draggedClone = GameObject.Instantiate(QuickReferences.qr.draggableItemPrefab, QuickReferences.qr.canv.gameObject.transform);
         draggedClone.gameObject.name = "MOVE:" + containedItem.stats.itemName;
 
-        Debug.Log("Starting drag of " + draggedClone.gameObject.name + " from " + gameObject.name);
+        //Debug.Log("Starting drag of " + draggedClone.gameObject.name + " from " + gameObject.name);
 
         //make sure that the clone follows the scaling of the canvas
         RectTransform selfTrans = GetComponent<RectTransform>();
@@ -119,7 +91,7 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         if (draggedClone == null)
             return;
 
-        Debug.Log("Ending drag of " + draggedClone.name);
+        //Debug.Log("Ending drag of " + draggedClone.name);
 
         //find slots to drop onto
         List<RaycastResult> dropResults = new List<RaycastResult>();
@@ -127,11 +99,11 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
         foreach (var result in dropResults) {
             InventorySlot slot = result.gameObject.GetComponent<InventorySlot>();
-            if (slot != null && slot != this) {
-                //found a valid position to move the item, transfer contents to slot
-                QuickReferences.qr.inv.MoveItemToSlot(containedItem, this, slot);
+            if (slot != null) {
+                Item myItem = containedItem;
                 this.Reset();
-                Debug.Log("Dropped into " + result.gameObject.name);
+                //found a valid position to move the item, transfer contents to slot
+                QuickReferences.qr.inv.MoveItemToSlot(myItem, this, slot);
                 return;
             }
         }

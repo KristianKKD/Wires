@@ -12,7 +12,7 @@ public class Item : MonoBehaviour { //the physical item that is stored in the in
 
     public ItemStats stats; //the item details are written in here
     public List<IItem> itemScripts; //sub-components are placed in the prefab as children and added to this list
-    public InventorySlot tile = null;
+    public InventorySlot myTile = null;
 
     public virtual void Use() {
         IItem[] items = GetComponentsInChildren<IItem>();

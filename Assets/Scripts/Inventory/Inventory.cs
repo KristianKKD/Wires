@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour {
 
     public List<Item> inventoryItems = new List<Item>();
 
-    private void Awake() {
+    private void Start() {
         UpdateInventory();
     }
 
@@ -27,15 +27,15 @@ public class Inventory : MonoBehaviour {
 
         for (int i = 0; i < inventoryItems.Count; i++) {
             //assign a tile if an item doesn't have one already
-            if (inventoryItems[i].tile == null)
+            if (inventoryItems[i].myTile == null)
                 for (int j = 0; j < inventorySlots.Count; j++)
                     if (inventorySlots[j].containedItem == null) {
-                        inventoryItems[i].tile = inventorySlots[j];
+                        inventoryItems[i].myTile = inventorySlots[j];
                         print("Assigned " + inventoryItems[i].name + " to " + inventorySlots[j].name);
                         break;
                     }
 
-            inventoryItems[i].tile.UpdateSlot(inventoryItems[i]);
+            inventoryItems[i].myTile.UpdateSlot(inventoryItems[i]);
         }
     }
 
@@ -43,9 +43,10 @@ public class Inventory : MonoBehaviour {
         Debug.Log("Moving " + it.name + " from " + oldSlot.name + " to " + newSlot.name);
         Item oldItem = it;
         Item newItem = newSlot.containedItem;
-            
+
         newSlot.UpdateSlot(oldItem);
-        oldSlot.UpdateSlot(newItem);
+        if (oldSlot != newSlot) // Don't update twice if the slot is the same
+            oldSlot.UpdateSlot(newItem);
 
     }
 

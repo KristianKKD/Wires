@@ -84,9 +84,8 @@ public class ManageBoard : MonoBehaviour {
         }
     }
 
-    public Component GetComponentAtPosition(Vector2 checkPos, int startingPos) {
-        int targetPos = startingPos + (int)(checkPos.x + (checkPos.y * tileMaxX));
-        Debug.Log("checkPos: " + checkPos + ", targetPos: " + targetPos);
+    public ComponentItem GetComponentAtPosition(Vector2 checkPos, int startingPos) {
+        int targetPos = startingPos + (int)Mathf.Round(checkPos.x) + (int)Mathf.Round(checkPos.y) * tileMaxX;
         if (targetPos < 0 || targetPos > tiles.Count)
             return null;
 
@@ -94,7 +93,7 @@ public class ManageBoard : MonoBehaviour {
         if (it == null)
             return null;
 
-        return it.GetComponent<Component>();
+        return it.GetComponent<ComponentItem>();
     }
 
     public void Update() {
@@ -107,6 +106,7 @@ public class ManageBoard : MonoBehaviour {
         } else
             AdjustGrid();
     }
+
 }
 
 

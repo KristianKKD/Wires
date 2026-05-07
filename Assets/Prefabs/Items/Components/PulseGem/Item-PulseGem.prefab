@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1858954959954197596}
   - component: {fileID: 3026387991412733105}
   - component: {fileID: 390646392210843250}
-  - component: {fileID: 1394808921846069676}
+  - component: {fileID: -105853795580406122}
   m_Layer: 0
-  m_Name: SourceItem
+  m_Name: Item-PulseGem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -2413806693520163455, guid: a5c0bb7c4b914ff42bbf3f05a01fb5b5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1394808921846069676
+--- !u!114 &-105853795580406122
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,19 +85,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 660305721126542236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e089df09f3cb704699d0b5bd7f836a9, type: 3}
+  m_Script: {fileID: 11500000, guid: d1f6a63844633b8478736fe9616ca85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 447eddf5589b8c747896fd2b3968cfa8, type: 2}
-  tile: {fileID: 0}
+  stats: {fileID: 11400000, guid: 3863abca047fa354993080d93cf93aaf, type: 2}
+  myTile: {fileID: 0}
   currentEnergy: 0
   active: 1
-  inSpots: []
+  inSpots:
+  - {x: -1, y: 0}
   outSpots:
   - {x: 1, y: 0}
-  - {x: 0, y: 1}
-  - {x: -1, y: 0}
-  - {x: 0, y: -1}
+  rotation: 0
   incomingConnections: []
   outgoingConnections: []
-  outgoingEnergy: 10
